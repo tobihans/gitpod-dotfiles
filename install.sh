@@ -10,7 +10,7 @@ bob complete bash >> ~/.local/share/bash-completion/completions/bob
 cat >~/.config/bob/config.json <<EOF
 {
   "downloads_location": "$HOME/.local/share/bob",
-  "installation_location": "$HOME/.local/bin",
+  "installation_location": "$HOME/.local/bin"
 }
 EOF
 
