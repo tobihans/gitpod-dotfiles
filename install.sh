@@ -16,4 +16,3 @@ echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >> ~/.bashrc
 curl -fL https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz | gunzip > tree-sitter
 chmod +x tree-sitter
 sudo install -v ./tree-sitter /usr/local/bin/
-
