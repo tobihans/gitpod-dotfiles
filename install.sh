@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=2016
 
 sudo apt update
 sudo apt upgrade -y
@@ -10,7 +11,6 @@ install_neovim() {
     sudo rm -rf /opt/nvim
     sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
-    # shellcheck disable=2016
     echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >>~/.bashrc
 
     wget -O /tmp/main.zip https://github.com/tobihans/dotfiles/archive/refs/heads/main.zip
@@ -31,4 +31,16 @@ install_gh_cli() {
     sudo install -v gh_2.58.0_linux_amd64/bin/gh /usr/local/bin/
 }
 
-install_gh_cli & install_neovim & install_treesitter
+install_mise() {
+    mkdir -p ~/.config/mise
+    curl -fsL --output ~/.config/mise/config.toml https://github.com/tobihans/dotfiles/raw/refs/heads/main/dot_config/mise/config.toml
+    curl https://mise.run | sh
+    echo 'eval "$(~/.local/bin/mise activate bash)"' >>~/.bashrc
+}
+
+install_gh_cli &
+install_neovim &
+install_treesitter &
+install_mise &
+
+wait
