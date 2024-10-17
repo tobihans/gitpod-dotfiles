@@ -33,9 +33,20 @@ install_gh_cli() {
 
 install_mise() {
     mkdir -p ~/.config/mise
-    curl -fsL --output ~/.config/mise/config.toml https://github.com/tobihans/dotfiles/raw/refs/heads/main/dot_config/mise/config.toml
+    cp ./mise.toml ~/.config/mise/config.toml
     curl https://mise.run | sh
     echo 'eval "$(~/.local/bin/mise activate bash)"' >>~/.bashrc
+}
+
+setup_aliases_n_commands() {
+cat <<EOF >>~/.bashrc
+alias nvim='mise exec -- nvim'
+setup_base() {
+    false; while [[ "$?" -ne "0" ]]; do nvim --headless +q; done
+    nvim --headless +"e /tmp/test.txt" +"sleep 30" +SupermavenUseFree +q
+    mise install
+}
+EOF
 }
 
 install_gh_cli &
