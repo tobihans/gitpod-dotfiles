@@ -39,13 +39,13 @@ install_mise() {
 }
 
 setup_aliases_n_commands() {
-cat <<EOF >>~/.bashrc
-alias nvim='mise exec -- nvim'
+    cat <<EOF >>~/.bashrc
 setup_base() {
+    mise install
     false; while [[ "$?" -ne "0" ]]; do nvim --headless +q; done
     nvim --headless +"e /tmp/test.txt" +"sleep 30" +SupermavenUseFree +q
-    mise install
 }
+alias nvim='mise exec -- nvim'
 EOF
 }
 
@@ -53,5 +53,6 @@ install_gh_cli &
 install_neovim &
 install_treesitter &
 install_mise &
+setup_aliases_n_commands
 
 wait
